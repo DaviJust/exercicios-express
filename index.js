@@ -10,13 +10,16 @@ const PORT = 3000;
 app.get('/api/data', async (req, res) => {
   try {
     // Make a GET request to an external API
-    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+    const response = await axios.get('https://dog.ceo/api/breeds/list/all', { responseType: 'arraybuffer' });
 
     // Extract the data from the response
     const data = response.data;
 
-    // Send the data as the API response
-    res.status(200).json(data);
+    // Set the appropriate content type for the image
+    res.setHeader('Content-Type', 'image/jpeg');
+
+    // Send the image data as the response
+    res.status(200).send(data);
   } catch (error) {
     // Handle any errors that may occur
     console.error(error);
