@@ -1,17 +1,33 @@
 // Importing the necessary modules
 const express = require('express');
-const axios = require('axios');
-const saudacao = require('./saudacaoMid')
+const bodyParser = require('body-parser')
+
+app.use(bodyParser.text())
 
 // Initializing the express app
 const app = express();
 const PORT = 3000;
 
-app.use(saudacao)
 
 app.use('/opa', (req, res, next) => {
   console.log('Antes')
   next()
+})
+
+app.post('/corpo', (req, res) => {
+  
+  app.use(bodyParser.text())
+  res.send(req.body)
+
+})
+
+
+app.get('/clientes/relatorio', (req, res) => {
+  res.send(`Cliente relatório: completo ${req.query.completo} ano = ${req.query.ano}`)
+})
+
+app.get('/cliente/:id', (req, res) => {
+  res.send(`Cliente ${req.params.id} selecionado!`)
 })
 
 
