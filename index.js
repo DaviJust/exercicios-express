@@ -1,10 +1,31 @@
 // Importing the necessary modules
 const express = require('express');
 const axios = require('axios');
+const saudacao = require('./saudacaoMid')
 
 // Initializing the express app
 const app = express();
 const PORT = 3000;
+
+app.use(saudacao)
+
+app.use('/opa', (req, res, next) => {
+  console.log('Antes')
+  next()
+})
+
+
+
+app.use('/opa', (req, res, next) => {
+  console.log('Durante')
+  next()
+})
+
+
+app.use('/opa', (req, res, next) => {
+  console.log('Depois')
+  next()
+})
 
 app.get('/opa', (req, res) => {
   res.json({
@@ -19,6 +40,8 @@ app.get('/opa', (req, res) => {
     status: 200
   });
 });
+
+
 // Endpoint for making a GET request to an external API
 // app.get('/api/data', async (req, res) => {
 //   try {
